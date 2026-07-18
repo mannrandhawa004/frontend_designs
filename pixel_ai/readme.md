@@ -44,10 +44,7 @@ npm run build
 
 ## Preview images
 
-![Hero artwork](public/images/hero-orbit.jpg)
+![Hero artwork](public/images/ss1.png)
 
-![Gallery artwork](public/images/gallery-cyber.jpg)
+![Gallery artwork](public/images/ss2.png)
 
-![Process artwork](public/images/process-one.jpg)
-
-![Studio concept image](public/images/hero-side.jpg)
