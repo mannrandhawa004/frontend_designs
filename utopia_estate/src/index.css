@@ -1,0 +1,226 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Outfit", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --color-accent: #f0875a;
+  --color-brand: #2a1d6f;
+
+  --animate-rise: rise 0.9s cubic-bezier(0.2, 0.75, 0.2, 1) both;
+  --animate-pop: pop 0.22s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  --animate-fade: fade 0.3s ease both;
+  --animate-kenburns: kenburns 18s cubic-bezier(0.25, 0.6, 0.3, 1) both;
+  --animate-toast: toast 0.35s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  --animate-typing: typing 1.2s ease-in-out infinite;
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes pop {
+    from {
+      opacity: 0;
+      transform: translateY(-6px) scale(0.97);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes kenburns {
+    from {
+      transform: scale(1.08);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+  @keyframes toast {
+    from {
+      opacity: 0;
+      transform: translateY(12px) scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes typing {
+    0%,
+    80%,
+    100% {
+      opacity: 0.25;
+      transform: translateY(0);
+    }
+    40% {
+      opacity: 1;
+      transform: translateY(-3px);
+    }
+  }
+}
+
+/* Runtime (themeable) tokens */
+@theme inline {
+  --color-frame: var(--frame);
+  --color-surface: var(--surface);
+  --color-chip: var(--chip);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+}
+
+:root {
+  --frame: #f3f2f9;
+  --surface: #ffffff;
+  --chip: #e8e7f2;
+  --ink: #16153a;
+  --muted: #6c6b87;
+  --line: rgb(22 21 58 / 0.09);
+
+  --glass: linear-gradient(140deg, rgb(255 255 255 / 0.56), rgb(255 255 255 / 0.26));
+  --glass-solid: rgb(255 255 255 / 0.4);
+  --glass-btn: rgb(255 255 255 / 0.42);
+  --glass-btn-hover: rgb(255 255 255 / 0.7);
+  --glass-ink: #16153a;
+  --glass-stroke: rgb(255 255 255 / 0.7);
+  --edge-a: 0.95;
+  --edge-b: 0.22;
+
+  --shadow-pop: 0 28px 60px -20px rgb(28 22 80 / 0.38), 0 6px 16px -8px rgb(28 22 80 / 0.18);
+  --shadow-soft: 0 14px 30px -14px rgb(20 16 60 / 0.45);
+  color-scheme: light;
+}
+
+.dark {
+  --frame: #0f0e1f;
+  --surface: #18172f;
+  --chip: #26243f;
+  --ink: #f1f0ff;
+  --muted: #9e9cbc;
+  --line: rgb(255 255 255 / 0.08);
+
+  --glass: linear-gradient(140deg, rgb(18 16 42 / 0.64), rgb(18 16 42 / 0.36));
+  --glass-solid: rgb(18 16 42 / 0.45);
+  --glass-btn: rgb(255 255 255 / 0.1);
+  --glass-btn-hover: rgb(255 255 255 / 0.2);
+  --glass-ink: #ffffff;
+  --glass-stroke: rgb(255 255 255 / 0.16);
+  --edge-a: 0.42;
+  --edge-b: 0.07;
+
+  --shadow-pop: 0 28px 60px -20px rgb(0 0 0 / 0.7), 0 6px 16px -8px rgb(0 0 0 / 0.5);
+  --shadow-soft: 0 14px 30px -14px rgb(0 0 0 / 0.7);
+  color-scheme: dark;
+}
+
+/*
+ * On desktop the whole UI scales with the viewport (1rem = 16px on a 1440×1000 canvas),
+ * so the framed hero always fits the screen with the exact proportions of the design.
+ */
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+@media (min-width: 1024px) {
+  html {
+    font-size: clamp(13px, min(1.1111vw, 1.6vh), 20px);
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--frame);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: #f0875a;
+  color: white;
+}
+
+@layer components {
+  .glass {
+    background: var(--glass);
+    -webkit-backdrop-filter: blur(22px) saturate(1.5);
+    backdrop-filter: blur(22px) saturate(1.5);
+    color: var(--glass-ink);
+  }
+  .glass-chip {
+    background: var(--glass-solid);
+    -webkit-backdrop-filter: blur(16px) saturate(1.4);
+    backdrop-filter: blur(16px) saturate(1.4);
+    color: var(--glass-ink);
+  }
+  .glass-btn {
+    background: var(--glass-btn);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    color: var(--glass-ink);
+  }
+  .glass-btn:hover {
+    background: var(--glass-btn-hover);
+  }
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .eyebrow::before {
+    content: "";
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 999px;
+    background: #f0875a;
+  }
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.5s;
+}
+
+
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
